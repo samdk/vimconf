@@ -1,0 +1,94 @@
+filetype on
+filetype indent on
+filetype plugin on
+
+" general things
+set nocompatible
+set backspace=indent,eol,start
+syntax on
+
+" make Python syntax highlighting highlight more things
+let python_highlight_numbers = 1
+let python_highlight_builtins = 1
+let python_highlight_exceptions = 1
+
+" kill error bells entirely
+set noerrorbells
+set novisualbell
+set t_vb=
+
+set history=100
+set ruler
+set showmatch
+runtime macros/matchit.vim " matches if/elseif/else as well as brackets
+
+set scrolloff=3 " scroll before reaching the edge of the page
+
+set lbr " wraps at words instead of at characters
+
+set ignorecase " for searching
+set smartcase
+
+" autocomplete when opening files. behaves somewhat similarly to bash.
+set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe
+set wildmenu
+set wildmode=list:longest
+
+" by default, use tabs, display tabstabs are four spaces, and we use tabs
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set autoindent
+set smartindent
+
+" in Ruby and Scala, we use spaces (two) instead of tabs
+au BufRead,BufNewFile *.rb,*.scala set et sw=2 sts=2 ts=8
+" in Python, we use spaces (four) instead of tabs
+au BufRead,BufNewFile *.py set et
+" these are re-specified to avoid issues with having files of different types
+" open. there is probably a better way to do this. which is good, because this
+" list of filetypes isn't anywhere near exhaustive.
+au BufRead,BufNewFile *.css,*.c,*.java,*.html,*.js set noet sw=4 sts=4 ts=4
+
+" backups and swap files go in .vim
+"
+" ending with the double slash includes the full path in the filename
+" of the swap files to avoid conflicts
+set backupdir=~/.vim/backup//
+set backup
+set directory=~/.vim/tmp//
+
+" autocompletes parens/brackets
+inoremap ( ()<Left>
+inoremap [ []<Left>
+
+" autocomplete quotes intelligently
+" stolen from somewhere, although I don't remember where.
+inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a
+inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
+inoremap	`  `<Esc>:call QuoteInsertionWrapper('`')<CR>a
+
+function! QuoteInsertionWrapper (quote)
+	let col = col('.')
+	if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
+		normal ax
+		exe "normal r".a:quote."h"
+	end
+endfunction
+
+" no need for a separate .gvimrc
+if has('gui_running')
+	colorscheme vimsidian " custom pretty color scheme!
+	set number " show line numbers
+	set lines=60 " new gvim windows are 100x60
+	set columns=100
+	set guifont=Inconsolata\ 11
+
+	set guioptions-=m  " hide the menu bar
+	set guioptions-=T  " hide the toolbar
+	set guioptions-=r  " hide the right-hand scroll bar
+	set guioptions-=l  " hide the left-hand scroll bar
+	" shows/hides menu bar on Ctrl-F1
+	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+endif
