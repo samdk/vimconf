@@ -57,7 +57,7 @@ au BufRead,BufNewFile *.css,*.c,*.java,*.html,*.js set noet sw=4 sts=4 ts=4
 " of the swap files to avoid conflicts
 set backupdir=~/.vim/backup//
 set backup
-set directory=~/.vim/tmp//
+set directory=~/.vim/vimtmp//
 
 " autocompletes parens/brackets
 inoremap ( ()<Left>
@@ -65,8 +65,7 @@ inoremap [ []<Left>
 
 " autocomplete quotes intelligently
 " stolen from somewhere, although I don't remember where.
-inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a
-inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
+inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
 inoremap	`  `<Esc>:call QuoteInsertionWrapper('`')<CR>a
 
 function! QuoteInsertionWrapper (quote)
