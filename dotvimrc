@@ -57,7 +57,7 @@ au BufRead,BufNewFile *.css,*.c,*.java,*.html,*.js set noet sw=4 sts=4 ts=4
 " of the swap files to avoid conflicts
 set backupdir=~/.vim/backup//
 set backup
-set directory=~/.vim/vimtmp//
+set directory=~/.vim/tmp//
 
 " autocompletes parens/brackets
 inoremap ( ()<Left>
