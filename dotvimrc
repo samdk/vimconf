@@ -65,7 +65,8 @@ inoremap [ []<Left>
 
 " autocomplete quotes intelligently
 " stolen from somewhere, although I don't remember where.
-inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
+inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a
+inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
 inoremap	`  `<Esc>:call QuoteInsertionWrapper('`')<CR>a
 
 function! QuoteInsertionWrapper (quote)
