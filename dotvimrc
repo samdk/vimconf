@@ -59,6 +59,13 @@ set backupdir=~/.vim/backup//
 set backup
 set directory=~/.vim/tmp//
 
+
+" up/down move between visual lines instead of actual lines when wrapped
+imap <silent> <Down> <C-o>gj
+imap <silent> <Up> <C-o>gk
+nmap <silent> <Down> gj
+nmap <silent> <Up> gk
+
 " autocompletes parens/brackets
 inoremap ( ()<Left>
 inoremap [ []<Left>
