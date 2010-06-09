@@ -1,5 +1,5 @@
 # Summary
-VimConf is my `.vim` and `.vimrc`. `vcinstall` is a very simple bash script that removes the current `~/.vim`, `~/.vimrc`, and `~/.gvimrc` and copies dotvim and dotvimrc to `~/.vim` and `~/.vimrc`. Don't run it unless you want your current Vim configuration to be completely overwritten.
+VimConf is my `.vim` and `.vimrc`. `vcinstall.sh` is a very simple bash script that removes the current `~/.vim`, `~/.vimrc`, and `~/.gvimrc` and copies dotvim and dotvimrc to `~/.vim` and `~/.vimrc`. Don't run it unless you want your current Vim configuration to be completely overwritten.
 
 # Details
 `.vim` includes a custom color scheme, and a slightly modified version of the  default python.vim syntax highlighting file that adds support for coloring class names differently than function names. It also includes the directories backup and tmp, which are used for Vim's backup/swap files so they don't clutter up working directories.

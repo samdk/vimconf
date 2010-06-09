@@ -3,6 +3,6 @@ rm ~/.vimrc
 rm ~/.gvimrc
 rm -r ~/.vim
 
-cp dotvim ~/.vim
+cp -r dotvim ~/.vim
 cp dotvimrc ~/.vimrc
 
