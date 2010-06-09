@@ -4,6 +4,9 @@
 " Updated:	2006-10-15
 "		Added Python 2.4 features 2006 May 4 (Dmitry Vasiliev)
 "
+" UPDATED 2010 by Sam DeFabbia-Kane (github.com/samdk) to add support for
+" highlighting class names separate from function names.
+"
 " Options to control Python syntax highlighting:
 "
 " For highlighted numbers:
