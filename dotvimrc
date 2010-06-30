@@ -90,7 +90,7 @@ if has('gui_running')
 	set number " show line numbers
 	set lines=60 " new gvim windows are 100x60
 	set columns=100
-	set guifont=Inconsolata\ 11
+	set guifont=Inconsolata\ 12
 
 	set guioptions-=m  " hide the menu bar
 	set guioptions-=T  " hide the toolbar
