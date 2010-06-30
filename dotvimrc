@@ -53,6 +53,9 @@ au BufRead,BufNewFile *.py set et
 " list of filetypes isn't anywhere near exhaustive.
 au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js set noet sw=4 sts=4 ts=4
 
+" new HTML files get automatic boilerplate
+au BufNewFile *.html 0r ~/.vim/templates/template.html
+
 " backups and swap files go in .vim
 "
 " ending with the double slash includes the full path in the filename
