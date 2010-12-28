@@ -57,7 +57,7 @@ au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js set noet sw=4 sts=4 ts=4
 au BufNewFile *.html 0r ~/.vim/templates/template.html
 
 " refresh Firefox on Vim save (requires MozRepl installed/running)
-au BufWriteCmd *.html,*.css :call Refresh_firefox()
+" au BufWriteCmd *.html,*.css :call Refresh_firefox()
 
 function! Refresh_firefox()
   if &modified
@@ -110,7 +110,7 @@ if has('gui_running')
 	set number " show line numbers
 	set lines=60 " new gvim windows are 100x60
 	set columns=100
-	set guifont=Inconsolata\ 12
+	set guifont=Inconsolata\ 11
 
 	set guioptions-=m  " hide the menu bar
 	set guioptions-=T  " hide the toolbar
