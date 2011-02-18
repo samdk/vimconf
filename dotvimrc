@@ -120,3 +120,4 @@ if has('gui_running')
 	" shows/hides menu bar on Ctrl-F1
 	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 endif
+
