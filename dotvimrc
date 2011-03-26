@@ -57,6 +57,10 @@ au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js,*.haml,*.scss,*.sass setl no
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
 
+" some additional bindings for dealing with ctags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> "open in new tab
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> " open in new vertical split
+
 " refresh Firefox on Vim save (requires MozRepl installed/running)
 " au BufWriteCmd *.html,*.css :call Refresh_firefox()
 
