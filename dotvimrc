@@ -1,3 +1,6 @@
+filetype off
+filetype indent plugin off
+call pathogen#runtime_append_all_bundles()
 filetype on
 filetype indent on
 filetype plugin on
@@ -6,11 +9,22 @@ filetype plugin on
 set nocompatible
 set backspace=indent,eol,start
 syntax on
+set number " show line numbers
+
+" vimclojure stuff
+let vimclojureRoot="~/.vim/bundle/vimclojure"
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
 
 " make Python syntax highlighting highlight more things
-let python_highlight_numbers = 1
-let python_highlight_builtins = 1
-let python_highlight_exceptions = 1
+let python_highlight_numbers=1
+let python_highlight_builtins=1
+let python_highlight_exceptions=1
+
+" coffeescript syntax highlighting stuff
+let coffee_no_trailing_space_error=1
 
 " kill error bells entirely
 set noerrorbells
@@ -36,22 +50,23 @@ set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe
 set wildmenu
 set wildmode=list:longest
 
-" by default, use tabs, display tabstabs are four spaces, and we use tabs
-set tabstop=4
+" by default, use 4 spaces. tabs are 8 to make them stand out.
+set tabstop=8
 set shiftwidth=4
 set softtabstop=4
+set expandtab
 
 set autoindent
 set smartindent
 
 " in Ruby and Scala, we use spaces (two) instead of tabs
-au BufRead,BufNewFile *.rb,*.scala set et sw=2 sts=2 ts=8
+au BufRead,BufNewFile *.rb,*.scala setl et sw=2 sts=2 ts=8
 " in Python, we use spaces (four) instead of tabs
-au BufRead,BufNewFile *.py set et
+au BufRead,BufNewFile *.py,*.clj,*.coffee setl et sw=4 sts=4 ts=8
 " these are re-specified to avoid issues with having files of different types
 " open. there is probably a better way to do this. which is good, because this
 " list of filetypes isn't anywhere near exhaustive.
-au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js set noet sw=4 sts=4 ts=4
+au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js,*.haml,*.scss,*.sass setl et sw=4 sts=4 ts=8
 
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
@@ -107,7 +122,6 @@ endfunction
 " no need for a separate .gvimrc
 if has('gui_running')
 	colorscheme vimsidian " custom pretty color scheme!
-	set number " show line numbers
 	set lines=60 " new gvim windows are 100x60
 	set columns=100
 	set guifont=Inconsolata\ 11
@@ -118,4 +132,8 @@ if has('gui_running')
 	set guioptions-=l  " hide the left-hand scroll bar
 	" shows/hides menu bar on Ctrl-F1
 	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+
+	" vim indent guides support -- only really looks nice in gvim
+	let g:indent_guides_color_change_percent=2 " subtle is good
+	let g:indent_guides_enable_on_vim_startup=1
 endif
