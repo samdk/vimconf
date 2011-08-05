@@ -71,6 +71,10 @@ au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js,*.haml,*.scss,*.sass setl et
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
 
+" some additional bindings for dealing with ctags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> "open in new tab
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> " open in new vertical split
+
 " refresh Firefox on Vim save (requires MozRepl installed/running)
 " au BufWriteCmd *.html,*.css :call Refresh_firefox()
 
@@ -137,3 +141,4 @@ if has('gui_running')
 	let g:indent_guides_color_change_percent=2 " subtle is good
 	let g:indent_guides_enable_on_vim_startup=1
 endif
+
