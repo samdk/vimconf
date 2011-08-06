@@ -111,9 +111,13 @@ inoremap [ []<Left>
 
 " autocomplete quotes intelligently
 " stolen from somewhere, although I don't remember where.
-inoremap	'  '<Esc>:call QuoteInsertionWrapper("'")<CR>a
-inoremap	"  "<Esc>:call QuoteInsertionWrapper('"')<CR>a
-inoremap	`  `<Esc>:call QuoteInsertionWrapper('`')<CR>a
+inoremap ' '<Esc>:call QuoteInsertionWrapper("'")<CR>a
+inoremap " "<Esc>:call QuoteInsertionWrapper('"')<CR>a
+inoremap ` `<Esc>:call QuoteInsertionWrapper('`')<CR>a
+
+" Ctrl-N and Ctrl-P go to next/prev tabs in normal mode
+nmap <silent> <C-N> :tabnext<Enter>
+nmap <silent> <C-P> :tabprev<Enter>
 
 function! QuoteInsertionWrapper (quote)
 	let col = col('.')
