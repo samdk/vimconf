@@ -44,6 +44,7 @@ set lbr " wraps at words instead of at characters
 set ignorecase
 set smartcase
 set hlsearch
+map <silent> <F12> :nohlsearch<CR>
 
 " autocomplete when opening files. behaves somewhat similarly to bash.
 set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe
