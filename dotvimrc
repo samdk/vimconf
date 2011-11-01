@@ -31,6 +31,12 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
+" better titlestring for working on multiple computers
+let &titlestring = "%m %f @ " . hostname()
+
+" mouse in terminal
+set mouse=a
+
 set history=100
 set ruler
 set showmatch
@@ -77,20 +83,6 @@ au BufNewFile *.html 0r ~/.vim/templates/template.html
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> "open in new tab
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> " open in new vertical split
 
-" refresh Firefox on Vim save (requires MozRepl installed/running)
-" au BufWriteCmd *.html,*.css :call Refresh_firefox()
-
-function! Refresh_firefox()
-  if &modified
-    write
-    silent !echo  'vimYo = content.window.pageYOffset;
-                 \ vimXo = content.window.pageXOffset;
-                 \ BrowserReload();
-                 \ content.window.scrollTo(vimXo,vimYo);
-                 \ repl.quit();'  |
-                 \ nc localhost 4242 2>&1 > /dev/null
-  endif
-endfunction
 
 " backups and swap files go in .vim
 "
@@ -138,13 +130,14 @@ if has('gui_running')
 
 	set guioptions-=m  " hide the menu bar
 	set guioptions-=T  " hide the toolbar
-	set guioptions-=r  " hide the right-hand scroll bar
-	set guioptions-=l  " hide the left-hand scroll bar
+	set guioptions-=rR " hide the right-hand scroll bar
+	set guioptions-=lL " hide the left-hand scroll bar
+	set guioptions-=b  " hide the horizontal scroll bar
 	" shows/hides menu bar on Ctrl-F1
 	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 
 	" vim indent guides support -- only really looks nice in gvim
-	let g:indent_guides_color_change_percent=2 " subtle is good
+	let g:indent_guides_color_change_percent=4 " subtle is good
 	let g:indent_guides_enable_on_vim_startup=1
 endif
 
