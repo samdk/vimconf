@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# load extensions specific to this environment
+[[ -e $HOME/.bashrc.local ]] && source $HOME/.bashrc.local
+
+shopt -s checkwinsize
+shopt -s histappend
+set -o notify
+
+#export TERM=xterm-256color
+export HISTFILESIZE=65536
+export HISTSIZE=65536
+
+set -o vi
+alias ls="ls --color -F"
+alias ll="ls -l"
+alias la="ls -a"
+alias lla="ls -la"
+alias xterm="xterm +sb -fa Inconsolata -fs 12 -bg \#2b2e2f -fg \#d4d4d4"
+alias tmux="tmux -2"
+alias tree="tree -CAF"
+alias grep="grep -P"
+alias highlight="highlight --out-format xterm256"
+alias less="less -R"
+alias lessdiff="highlight --syntax diff | less"
+alias ldiff=lessdiff
+
+export PATH=$HOME/bin:$PATH
+
+export EDITOR=vim
+
+# color shortcuts
+     red_bg='\[\e[41m\]'
+   bold_red='\[\e[1;31m\]'
+ bold_green='\[\e[1;32m\]'
+bold_yellow='\[\e[1;33m\]'
+  bold_blue='\[\e[1;34m\]'
+bold_purple='\[\e[1;35m\]'
+  bold_cyan='\[\e[1;36m\]'
+ bold_white='\[\e[1;37m\]'
+   ul_green='\[\e[4;32m\]'
+  ul_yellow='\[\e[4;33m\]'
+    ul_purp='\[\e[4;35m\]'
+     ul_red='\[\e[4;31m\]'
+     yellow='\[\e[0;33m\]'
+reset='\[\e[0m\]'
+
+SHORTHN=`hostname | cut -d . -f 1`
+
+# these functions set up parts of the command prompt.
+# the environment-specific parts may be replaced by
+# defining local_${FUNCNAME}.
+
+# sets up different-colored prompts for different hosts,
+# and may perform other host-specific setup actions.
+set_prompt_hostname() {
+  if [[ `declare -f local_set_prompt_hostname` ]]; then
+    local_set_prompt_hostname
+  else
+    case $SHORTHN in
+      "hugin")   prompt_hc=$bold_blue ;;
+      "basicio") prompt_hc=$ul_green  ;;
+    *) prompt_hc=$bold_white ;;
+    esac
+  fi
+}
+set_prompt_hostname
+
+original_prompt_char='$'
+prompt_char=$original_prompt_char
+
+set_prompt_user() {
+  user=`whoami`
+  if [[ `declare -f local_set_prompt_user` ]]; then
+    local_set_prompt_user
+  else
+    case $user in
+      "samdk")
+        prompt_user="";;
+      "root")
+        prompt_user="${red_bg}${bold_yellow}root${reset}@"
+        prompt_char="#";;
+    *) prompt_user="${user}@";;
+    esac
+  fi
+}
+set_prompt_user
+
+prompt_user="${prompt_user}${reset}"
+prompt_hostname="${prompt_hc}${SHORTHN}${reset}"
+
+prompt_command() {
+  exit_status=$?
+  if (( $exit_status != 0 )); then
+    echo -e "\e[1;31mEXIT STATUS ${exit_status}\e[0m"
+  fi
+
+  history -a
+  # prompt character is yellow if there are background jobs
+  if [[ `jobs | wc -l` -gt 0 ]]; then
+    prompt_char="${yellow}${original_prompt_char}${reset}"
+  else
+    prompt_char=$original_prompt_char
+  fi
+  # time, username, hostname, current directory, prompt
+  export PS1="[\t ${prompt_user}${prompt_hostname} \W${prompt_char}] "
+
+  if [[ `declare -f local_prompt_command` ]]; then
+    local_prompt_command
+  fi
+}
+PROMPT_COMMAND=prompt_command
+

@@ -60,21 +60,14 @@ set wildmode=list:longest
 
 " by default, use 4 spaces. tabs are 8 to make them stand out.
 set tabstop=8
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 set autoindent
 set smartindent
 
-" in Ruby and Scala, we use spaces (two) instead of tabs
-au BufRead,BufNewFile *.rb,*.scala setl et sw=2 sts=2 ts=8
-" in Python, we use spaces (four) instead of tabs
-au BufRead,BufNewFile *.py,*.clj,*.coffee setl et sw=4 sts=4 ts=8
-" these are re-specified to avoid issues with having files of different types
-" open. there is probably a better way to do this. which is good, because this
-" list of filetypes isn't anywhere near exhaustive.
-au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js,*.haml,*.scss,*.sass setl et sw=4 sts=4 ts=8
+au BufRead,BufNewFile *.py setl et sw=4 sts=4 ts=8
 
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
@@ -129,7 +122,7 @@ if has('gui_running')
 	set guifont=Inconsolata\ 11
 
 	set guioptions-=m  " hide the menu bar
-	set guioptions-=T  " hide the toolbar
+        set guioptions-=T  " hide the toolbar
 	set guioptions-=rR " hide the right-hand scroll bar
 	set guioptions-=lL " hide the left-hand scroll bar
 	set guioptions-=b  " hide the horizontal scroll bar

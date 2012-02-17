@@ -1,0 +1,1 @@
+/home/samdk/local/vimconf/dotvim
