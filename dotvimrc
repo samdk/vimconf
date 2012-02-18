@@ -27,6 +27,13 @@ let python_highlight_exceptions=1
 " coffeescript syntax highlighting stuff
 let coffee_no_trailing_space_error=1
 
+" better titlestring for working on multiple computers
+let &titlestring = "%m %f @ " . hostname()
+
+set undofile
+set undodir=~/.vim/undo//
+set undolevels=1000
+
 " kill error bells entirely
 set noerrorbells
 set novisualbell
@@ -38,7 +45,7 @@ let &titlestring = "%m %f @ " . hostname()
 " mouse in terminal
 set mouse=a
 
-set history=100
+set history=1000
 set ruler
 set showmatch
 runtime macros/matchit.vim " matches if/elseif/else as well as brackets
@@ -55,7 +62,7 @@ set incsearch
 map <silent> <F12> :nohlsearch<CR>
 
 " autocomplete when opening files. behaves somewhat similarly to bash.
-set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe
+set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe,*.ml.d,*.mli.d,*.objdeps
 set wildmenu
 set wildmode=list:longest
 
@@ -77,7 +84,6 @@ au BufNewFile *.html 0r ~/.vim/templates/template.html
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> "open in new tab
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> " open in new vertical split
 
-
 " backups and swap files go in .vim
 "
 " ending with the double slash includes the full path in the filename
@@ -86,6 +92,10 @@ set backupdir=~/.vim/backup//
 set backup
 set directory=~/.vim/tmp//
 
+" leader commands
+let maplocalleader = ",,"
+let mapleader = ","
+nmap <leader>c :%s///gn<cr> " ,c gives a count of highlighted stuff
 
 " up/down move between visual lines instead of actual lines when wrapped
 imap <silent> <Down> <C-o>gj
@@ -102,6 +112,19 @@ inoremap [ []<Left>
 inoremap ' '<Esc>:call QuoteInsertionWrapper("'")<CR>a
 inoremap " "<Esc>:call QuoteInsertionWrapper('"')<CR>a
 inoremap ` `<Esc>:call QuoteInsertionWrapper('`')<CR>a
+
+" requires vim-indent-guides -- colors specified in vimsidian color scheme
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+
+" graphical undo tree
+nnoremap <F5> :GundoToggle<CR>
+
+" use space to jump to space
+nnoremap <Space> }
+vnoremap <Space> }
+nnoremap \ {
+vnoremap \ {
 
 " Ctrl-N and Ctrl-P go to next/prev tabs in normal mode
 nmap <silent> <C-N> :tabnext<Enter>

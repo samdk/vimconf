@@ -98,4 +98,5 @@ hi Structure guifg=#A082BD guibg=NONE guisp=NONE gui=bold ctermfg=139 ctermbg=NO
 "hi DiffAdd -- no settings --
 "hi TabLine -- no settings --
 "hi clear -- no settings --
-
+hi IndentGuidesOdd  guibg=red   ctermbg=237
+hi IndentGuidesEven guibg=green ctermbg=238
