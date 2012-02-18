@@ -10,6 +10,7 @@ set nocompatible
 set backspace=indent,eol,start
 syntax on
 set number " show line numbers
+set t_Co=256
 
 " vimclojure stuff
 let vimclojureRoot="~/.vim/bundle/vimclojure"
@@ -107,30 +108,30 @@ nmap <silent> <C-N> :tabnext<Enter>
 nmap <silent> <C-P> :tabprev<Enter>
 
 function! QuoteInsertionWrapper (quote)
-	let col = col('.')
-	if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
-		normal ax
-		exe "normal r".a:quote."h"
-	end
+  let col = col('.')
+  if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
+    normal ax
+    exe "normal r".a:quote."h"
+  end
 endfunction
 
+colorscheme vimsidian2
 " no need for a separate .gvimrc
 if has('gui_running')
-	colorscheme vimsidian " custom pretty color scheme!
-	set lines=60 " new gvim windows are 100x60
-	set columns=100
-	set guifont=Inconsolata\ 11
+  set lines=60 " new gvim windows are 100x60
+  set columns=100
+  set guifont=Inconsolata\ 11
 
-	set guioptions-=m  " hide the menu bar
-        set guioptions-=T  " hide the toolbar
-	set guioptions-=rR " hide the right-hand scroll bar
-	set guioptions-=lL " hide the left-hand scroll bar
-	set guioptions-=b  " hide the horizontal scroll bar
-	" shows/hides menu bar on Ctrl-F1
-	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+  set guioptions-=m  " hide the menu bar
+  set guioptions-=T  " hide the toolbar
+  set guioptions-=rR " hide the right-hand scroll bar
+  set guioptions-=lL " hide the left-hand scroll bar
+  set guioptions-=b  " hide the horizontal scroll bar
+  " shows/hides menu bar on Ctrl-F1
+  nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 
-	" vim indent guides support -- only really looks nice in gvim
-	let g:indent_guides_color_change_percent=4 " subtle is good
-	let g:indent_guides_enable_on_vim_startup=1
+  " vim indent guides support -- only really looks nice in gvim
+  let g:indent_guides_color_change_percent=4 " subtle is good
+  let g:indent_guides_enable_on_vim_startup=1
 endif
 
