@@ -24,6 +24,7 @@ alias highlight="highlight --out-format xterm256"
 alias less="less -R"
 alias lessdiff="highlight --syntax diff | less"
 alias ldiff=lessdiff
+alias ssh-remove-host="ssh-keygen -R"
 
 export PATH=$HOME/bin:$PATH
 
