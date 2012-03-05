@@ -26,6 +26,24 @@ alias lessdiff="highlight --syntax diff | less"
 alias ldiff=lessdiff
 alias ssh-remove-host="ssh-keygen -R"
 
+randpw_local() {
+  if [[ $# = 0 ]]; then len=16
+  else len=$1; fi
+  cat /dev/urandom | tr -dc A-Za-z0-9_ | head -c$len && echo ""
+}
+randpw_remote() {
+  if [[ $# = 0 ]]; then len=16
+  else len=$1; fi
+  curl "https://www.random.org/strings/?num=1&len=${len}&rnd=new&format=plain&upperalpha=on&loweralpha=on&digits=on"
+}
+randpw() {
+  if [[ $# = 0 ]]; then len=16
+  else len=$1; fi
+  lcl=`cat /dev/urandom | tr -dc A-Za-z0-9_ | head -c20`
+  rmt=`randpw_remote 20`
+  echo "${lcl}${rmt}" | sha1sum | head -c$len && echo
+}
+
 export PATH=$HOME/bin:$PATH
 
 export EDITOR=vim
