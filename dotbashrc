@@ -79,6 +79,7 @@ set_prompt_hostname() {
     case $SHORTHN in
       "hugin")   prompt_hc=$bold_blue ;;
       "basicio") prompt_hc=$ul_green  ;;
+      "habrok")  prompt_hc=$ul_green  ;;
     *) prompt_hc=$bold_white ;;
     esac
   fi
