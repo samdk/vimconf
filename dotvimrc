@@ -30,8 +30,11 @@ let coffee_no_trailing_space_error=1
 " better titlestring for working on multiple computers
 let &titlestring = "%m %f @ " . hostname()
 
-set undofile
-set undodir=~/.vim/undo//
+" set undofile option if it's supported (old debian/centos dislike it)
+if exists('&undofile')
+  set undofile
+  set undodir=~/.vim/undo//
+endif
 set undolevels=1000
 
 " kill error bells entirely
