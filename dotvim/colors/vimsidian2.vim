@@ -37,7 +37,7 @@ hi StorageClass guifg=#A082BD guibg=NONE guisp=NONE gui=bold ctermfg=139 ctermbg
 hi Todo guifg=#8f8f8f guibg=NONE guisp=NONE gui=italic ctermfg=245 ctermbg=NONE cterm=NONE
 hi Special guifg=#e7f6da guibg=NONE guisp=NONE gui=NONE ctermfg=194 ctermbg=NONE cterm=NONE
 hi LineNr guifg=#857b6f guibg=#000000 guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
-hi StatusLine guifg=#f6f3e8 guibg=#444444 guisp=#444444 gui=italic ctermfg=230 ctermbg=238 cterm=NONE
+hi StatusLine guifg=#f6f3e8 guibg=#444444 guisp=#444444 gui=italic ctermfg=246 ctermbg=238 cterm=NONE
 hi Normal guifg=#C0C0C0 guibg=#2B2E2F guisp=#2B2E2F gui=NONE ctermfg=7 ctermbg=236 cterm=NONE
 hi Label guifg=#A082BD guibg=NONE guisp=NONE gui=bold ctermfg=139 ctermbg=NONE cterm=bold
 "hi CTagsImport -- no settings --
