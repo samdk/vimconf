@@ -37,6 +37,16 @@ if exists('&undofile')
 endif
 set undolevels=1000
 
+set cryptmethod=blowfish
+set switchbuf=useopen
+
+set smarttab
+
+" remember some stuff after quiting vim: marks, registers, searches, buffer list                      
+set viminfo='20,<50,s10,h,%
+
+set gdefault
+
 " kill error bells entirely
 set noerrorbells
 set novisualbell
@@ -93,9 +103,16 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> " open in new vertical sp
 "
 " ending with the double slash includes the full path in the filename
 " of the swap files to avoid conflicts
-set backupdir=~/.vim/backup//
-set backup
-set directory=~/.vim/tmp//
+"set backupdir=~/.vim/backup//
+"set backup
+"set directory=~/.vim/tmp//
+set nobackup
+set noswapfile
+
+set modeline
+set modelines=10
+
+set shortmess=at
 
 " leader commands
 let maplocalleader = ",,"
