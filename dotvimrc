@@ -54,7 +54,9 @@ set showmatch
 runtime macros/matchit.vim " matches if/elseif/else as well as brackets
 
 set scrolloff=3 " scroll before reaching the edge of the page
+set virtualedit=block
 
+set nowrap
 set lbr " wraps at words instead of at characters
 
 " stuff for searching
@@ -141,6 +143,10 @@ function! QuoteInsertionWrapper (quote)
   end
 endfunction
 
+
+" show highlight group for text under cursor
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+
 colorscheme vimsidian2
 " no need for a separate .gvimrc
 if has('gui_running')
@@ -161,3 +167,8 @@ if has('gui_running')
   let g:indent_guides_enable_on_vim_startup=1
 endif
 
+
+" add environment-specific customizations"
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
