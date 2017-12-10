@@ -30,7 +30,7 @@ hi NonText guifg=#808080 guibg=#303030 guisp=#303030 gui=NONE ctermfg=8 ctermbg=
 "hi Ignore -- no settings --
 "hi Debug -- no settings --
 hi PMenuSbar guifg=NONE guibg=#000000 guisp=#000000 gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Identifier guifg=#b36ebf guibg=NONE guisp=NONE gui=NONE ctermfg=133 ctermbg=NONE cterm=NONE
+hi Identifier guifg=#b36ebf guibg=NONE guisp=NONE gui=NONE ctermfg=133 ctermbg=NONE cterm=bold
 "hi SpecialChar -- no settings --
 hi Conditional guifg=#A082BD guibg=NONE guisp=NONE gui=bold ctermfg=139 ctermbg=NONE cterm=bold
 hi StorageClass guifg=#A082BD guibg=NONE guisp=NONE gui=bold ctermfg=139 ctermbg=NONE cterm=bold
@@ -64,7 +64,7 @@ hi CursorLine guifg=NONE guibg=#2d2d2d guisp=#2d2d2d gui=NONE ctermfg=NONE cterm
 "hi ModeMsg -- no settings --
 hi CursorColumn guifg=NONE guibg=#2d2d2d guisp=#2d2d2d gui=NONE ctermfg=NONE ctermbg=236 cterm=NONE
 "hi Define -- no settings --
-hi Function guifg=#5A81A8 guibg=NONE guisp=NONE gui=bold ctermfg=67 ctermbg=NONE cterm=bold
+hi Function guifg=#5A81A8 guibg=NONE guisp=NONE gui=bold ctermfg=6 ctermbg=NONE cterm=bold
 "hi FoldColumn -- no settings --
 hi PreProc guifg=#db2323 guibg=NONE guisp=NONE gui=NONE ctermfg=9 ctermbg=NONE cterm=NONE
 "hi EnumerationName -- no settings --

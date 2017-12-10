@@ -1,3 +1,6 @@
 [user]
 	name = Sam DeFabbia-Kane
 	email = sam@defabbiakane.com
+[push]
+	deafult = simple
+	default = simple

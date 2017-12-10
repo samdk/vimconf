@@ -5,6 +5,11 @@ filetype on
 filetype indent on
 filetype plugin on
 
+" requirements: fzf, ag
+
+" disable saving ~/.vim.netrwhist
+:let g:netrw_dirhistmax = 0
+
 " general things
 set nocompatible
 set backspace=indent,eol,start
@@ -119,6 +124,42 @@ let maplocalleader = ",,"
 let mapleader = ","
 nmap <leader>c :%s///gn<cr> " ,c gives a count of highlighted stuff
 
+" fzf enhancements
+nmap <leader>f :call fzf#run({'sink': 'tabedit', 'options': '--multi', 'down': '50%'})<CR>
+
+function! s:ag_to_qf(line)
+  let parts = split(a:line, ':')
+  return {'filename': parts[0], 'lnum': parts[1], 'col': parts[2],
+        \ 'text': join(parts[3:], ':')}
+endfunction
+
+function! s:ag_handler(lines)
+  if len(a:lines) < 2 | return | endif
+
+  let cmd = get({'ctrl-x': 'split',
+                \ 'ctrl-v': 'vertical split',
+                \ 'ctrl-t': 'e'}, a:lines[0], 'tabedit')
+  let list = map(a:lines[1:], 's:ag_to_qf(v:val)')
+
+  let first = list[0]
+  execute cmd escape(first.filename, ' %#\')
+  execute first.lnum
+  execute 'normal!' first.col.'|zz'
+
+  if len(list) > 1
+    call setqflist(list)
+    copen
+    wincmd p
+  endif
+endfunction
+
+command! -nargs=* Ag call fzf#run({
+      \ 'source':  printf('ag --nogroup --column --color "%s"', escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
+      \ 'sink*':   function('<sid>ag_handler'),
+      \ 'options': '--ansi --expect ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4 --multi --color hl:68,hl+:110',
+      \ 'down':    '50%'
+      \ })
+
 " up/down move between visual lines instead of actual lines when wrapped
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
@@ -189,3 +230,35 @@ endif
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+" lookup keyword is almost never used, invert J instead 
+nnoremap K i<CR><Esc>
+
+" map <leader>= and <leader>- to perform the most common alignments
+nnoremap <leader>- :Tabularize /-><cr>
+nnoremap <leader>; :Tabularize /^[^:]*\zs:<cr>
+nnoremap <leader>= :Tabularize /^[^=]*\zs=<cr>
+vnoremap <leader>- :Tabularize /-><cr>
+vnoremap <leader>; :Tabularize /^[^:]*\zs:<cr>
+vnoremap <leader>= :Tabularize /^[^=]*\zs=<cr>
+
+" ocaml
+let $OCP_INDENT_CONFIG = 'JaneStreet'
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+function! VimColorTest(outfile, fgend, bgend)
+  let result = []
+  for fg in range(a:fgend)
+    for bg in range(a:bgend)
+      let kw = printf('%-7s', printf('c_%d_%d', fg, bg))
+      let h = printf('hi %s ctermfg=%d ctermbg=%d', kw, fg, bg)
+      let s = printf('syn keyword %s %s', kw, kw)
+      call add(result, printf('%-32s | %s', h, s))
+    endfor
+  endfor
+  call writefile(result, a:outfile)
+  execute 'edit '.a:outfile
+  source %
+endfunction
+command! VimColorTest call VimColorTest('vi-color-test.tmp', 120, 1)

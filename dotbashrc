@@ -139,3 +139,12 @@ PROMPT_COMMAND=prompt_command
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
+. /home/samdk/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+alias pandoc='pandoc +RTS -V0 -RTS'
+
+export OPAMKEEPBUILDDIR=true
+export OCAMLPARAM="_,bin-annot=1"
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
