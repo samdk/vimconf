@@ -1,0 +1,15 @@
+Config
+  { font             = "-*-Fixed-*-*-*-*-14-*-*-*-*-*-*-*"
+  , bgColor          = "#333333"
+  , fgColor          = "#77bbff"
+  , position         = Top
+  , lowerOnStart     = True
+  , commands         = [ Run Com "date" ["+%Y-%m-%d %H:%M:%S"] "time" 5
+                       , Run StdinReader
+                       ]
+  , sepChar          = "%"
+  , alignSep         = "}{"
+  , template         = "%StdinReader% }{ %time%"
+  , overrideRedirect = False
+  }
+
