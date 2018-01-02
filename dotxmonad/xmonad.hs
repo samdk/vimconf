@@ -1,60 +1,80 @@
--- default desktop configuration for Fedora
-
-import System.Posix.Env
-import Data.Maybe
-import System.IO
-
 import XMonad
-import XMonad.Config.Desktop
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
+import XMonad.Layout.ResizableTile
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.NoBorders
 
--- roughly the same as the default, except slightly better
 theLayoutHook =
+  -- avoid docks
   avoidStruts
+  -- don't draw borders if there's only one thing visible
+  $ smartBorders
+  -- layouts are almost exactly the same as standard, except ResizableTall
+  -- replaces Tall, giving the ability to resize individual panes
   $ tallLayout
     ||| Mirror tallLayout
-    ||| noBorders Full
+    ||| Full
   where
     tallLayout = ResizableTall 1 (3/100) (1/2) []
 
 theExtraKeys =
+  -- resize individual windows in ResizableTall layout
   [ ("M-a", sendMessage MirrorShrink)
   , ("M-z", sendMessage MirrorExpand)
   ]
 
+theManageHook =
+  -- avoid xmobar
+  manageDocks
+  -- don't show borders if an application is displaying fullscreen
+  <+> (isFullscreen --> doFullFloat)
+  -- defaults
+  <+> manageHook defaultConfig
+
+theEventHook =
+  -- layouts get information about fullscreen windows
+  fullscreenEventHook
+  -- refresh layouts to avoid docks
+  <+> docksEventHook
+  -- defaults
+  <+> handleEventHook defaultConfig
+
+theLogHook xmobarPipe =
+  dynamicLogWithPP
+  $ xmobarPP
+    { ppOutput = hPutStrLn xmobarPipe
+    , ppTitle  = xmobarColor "#dbdbdb" ""
+    , ppUrgent = xmobarColor "yellow"  ""
+    }
+
 theConfig xmobarPipe =
   defaultConfig
-    { modMask            = mod1Mask
+    { modMask            = mod1Mask -- Alt
     , terminal           = "gnome-terminal"
     , focusFollowsMouse  = False
     , workspaces         = map show $ [1 .. 9] ++ [0]
     , layoutHook         = theLayoutHook
-    , manageHook         = manageDocks <+> manageHook defaultConfig
+    , manageHook         = theManageHook
     , borderWidth        = 3
     , normalBorderColor  = "#444444"
     , focusedBorderColor = "#327cf2"
-    , handleEventHook    = handleEventHook defaultConfig <+> fullscreenEventHook <+> docksEventHook
-    , logHook            = dynamicLogWithPP $ xmobarPP
-                            { ppOutput = hPutStrLn xmobarPipe
-                            , ppTitle  = xmobarColor "#77bbff" ""
-                            , ppOrder  = \(ws:l:t:_) -> [ws, l, t]
-                            , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
-                            }
+    , handleEventHook    = theEventHook
+    , logHook            = theLogHook xmobarPipe
     }
     `removeKeysP` ["M-q"]
     `additionalKeysP` theExtraKeys
 
 run xmobarPipe = xmonad $ ewmh $ theConfig xmobarPipe
 
+setSolidBackground = safeSpawn "xsetroot" ["-solid", "black"]
+
 main =
   do
-    session <- getEnv "DESKTOP_SESSION"
+    () <- setSolidBackground
     xmobarPipe <- spawnPipe ("xmobar ~/.xmonad/xmobarrc")
     run xmobarPipe
   

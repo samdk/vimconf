@@ -4,4 +4,5 @@ dotvim/undo
 dotxmonad/xmonad.errors
 dotxmonad/xmonad.hi
 dotxmonad/xmonad.o
+dotxmonad/xmonad.state
 dotxmonad/xmonad-*

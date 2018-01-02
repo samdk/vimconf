@@ -1,7 +1,7 @@
 Config
-  { font             = "-*-Fixed-*-*-*-*-14-*-*-*-*-*-*-*"
-  , bgColor          = "#333333"
-  , fgColor          = "#77bbff"
+  { font             = "xft:Inconsolata:size=10:antialias=true"
+  , bgColor          = "#303030"
+  , fgColor          = "#dbdbdb"
   , position         = Top
   , lowerOnStart     = True
   , commands         = [ Run Com "date" ["+%Y-%m-%d %H:%M:%S"] "time" 5
@@ -9,7 +9,7 @@ Config
                        ]
   , sepChar          = "%"
   , alignSep         = "}{"
-  , template         = "%StdinReader% }{ %time%"
+  , template         = " %StdinReader% }{ %time% "
   , overrideRedirect = False
   }
 
