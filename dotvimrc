@@ -86,7 +86,7 @@ set wildignore=*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe,*.ml.d,*.mli.d,*.objdeps
 set wildmenu
 set wildmode=list:longest
 
-" by default, use 4 spaces. tabs are 8 to make them stand out.
+" by default, use 2 spaces. tabs are 8 to make them stand out.
 set tabstop=8
 set shiftwidth=2
 set softtabstop=2
@@ -176,6 +176,14 @@ inoremap ' '<Esc>:call QuoteInsertionWrapper("'")<CR>a
 inoremap " "<Esc>:call QuoteInsertionWrapper('"')<CR>a
 inoremap ` `<Esc>:call QuoteInsertionWrapper('`')<CR>a
 
+function! QuoteInsertionWrapper (quote)
+  let col = col('.')
+  if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
+    normal ax
+    exe "normal r".a:quote."h"
+  end
+endfunction
+
 " requires vim-indent-guides -- colors specified in vimsidian color scheme
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
@@ -192,15 +200,6 @@ vnoremap \ {
 " Ctrl-N and Ctrl-P go to next/prev tabs in normal mode
 nmap <silent> <C-N> :tabnext<Enter>
 nmap <silent> <C-P> :tabprev<Enter>
-
-function! QuoteInsertionWrapper (quote)
-  let col = col('.')
-  if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
-    normal ax
-    exe "normal r".a:quote."h"
-  end
-endfunction
-
 
 " show highlight group for text under cursor
 map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>

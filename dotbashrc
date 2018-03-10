@@ -126,7 +126,8 @@ prompt_command() {
   fi
   # time, username, hostname, current directory, prompt
   if [[ `declare -f local_prompt_info` ]]; then                                                                 
-    prompt_add=`local_prompt_info`                                                                                else                                                                                                          
+    prompt_add=`local_prompt_info`
+  else
     prompt_add=""                                                                                               
   fi                                                                                                            
   export PS1="[\t ${prompt_user}${prompt_hostname} ${prompt_add}\W${prompt_char}] "
