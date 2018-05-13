@@ -64,7 +64,7 @@ compute_sha1() {
 }
 
 for location in "${ZIPPED_ARCHIVE_LOCATIONS[@]}"; do
-  cp "$ZIP_NAME" "$location/"
+  cp -b "$ZIP_NAME" "$location/"
 
   expected_new_name="$location/$(basename "$ZIP_NAME")"
   old_sha1="$(compute_sha1 "$ZIP_NAME")"
