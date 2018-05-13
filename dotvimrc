@@ -125,6 +125,9 @@ let mapleader = ","
 nmap <leader>c :%s///gn<cr> " ,c gives a count of highlighted stuff
 
 " fzf enhancements
+" get list of files from ag (so we ignore gitignored/hgignored files)
+let $FZF_DEFAULT_COMMAND='ag -g ""'
+" open things in new tabs
 nmap <leader>f :call fzf#run({'sink': 'tabedit', 'options': '--multi', 'down': '50%'})<CR>
 
 function! s:ag_to_qf(line)
